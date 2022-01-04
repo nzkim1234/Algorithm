@@ -1,5 +1,6 @@
 from sys import stdin
 from copy import deepcopy
+
 r, c, n = map(int,stdin.readline().split())
 graph = []
 only_bomb_graph = [['O' for _ in range(c)] for _ in range(r)]
@@ -8,15 +9,13 @@ position = [[0, 1], [1, 0], [-1, 0], [0, -1]]
 for _ in range(r):
     graph.append(list(stdin.readline().strip()))
 
-time = 0
-
-
-time += 1
+time = 1
 
 while time < n:
     time += 1
     case = time % 2
 
+    # 폭탄 폭발시키기
     if case == 1:   
          for x, y in bomb_location:
             graph[x][y] = '.'
@@ -29,6 +28,7 @@ while time < n:
                     if graph[n_x][n_y] == 'O':
                         graph[n_x][n_y] = '.'
 
+    # 기존의 폭탄 위치를 저장 후 그래프 전구역에 폭탄 설치
     else:
         bomb_location = []
 
