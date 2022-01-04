@@ -12,7 +12,7 @@ while word:
     # stack[-1]이 찾는 단어의 마지막 글자와 같고 len(stack) >= len(find_word)일 때
     if stack[-1] == find_word[-1] and len(stack) >= len(find_word):
         is_same = True
-        
+
         # 각 글자를 비교하다가 서로 문자가 다르면 break
         for i in range(len(find_word)):
             if stack[len(stack) - len(find_word) + i] != find_word[i]:

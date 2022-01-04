@@ -8,7 +8,7 @@ def solution(A, B):
         for j in range(len(B) - 1, -1, -1):
             if B[j] > i:
                 answer += 1
-                del B[j]
+                B.pop()
                 break
 
     return answer
