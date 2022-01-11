@@ -31,11 +31,11 @@ while end - start > 0.000001:
     y_a = (y_height / mid)
     y_b = 0
 
-    #교점(intersection_point) 구하기
-    intersection_point = x_height * (mid / (x_height + y_height))
+    #교점(intersection_point)의 x좌표 구하기
+    intersection_point_x = x_height * (mid / (x_height + y_height))
     
     # 교점의 y좌표 구하기
-    new_c = x_a * intersection_point + x_b
+    new_c = x_a * intersection_point_x + x_b
 
     if new_c >= c:
         start = mid + 0.000001
