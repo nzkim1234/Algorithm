@@ -18,7 +18,7 @@ queue.append([0, 0, 1])
 while queue:
     x, y, can_break = queue.popleft()
 
-    if [x, y] == [n-1, m-1]:
+    if [x, y] == [n - 1, m - 1]:
         result = visit_graph[x][y][can_break]
         break
 
@@ -27,10 +27,11 @@ while queue:
         n_y = y + p_y
 
         if 0 <= n_x < n and 0 <= n_y < m:
+            # 벽이 있고 벽울 부술 수 있는 경우
             if graph[n_x][n_y] == 1 and can_break == 1:
                 visit_graph[n_x][n_y][0] =visit_graph[x][y][1] + 1
                 queue.append([n_x, n_y, 0])
-
+            # 벽이 없고 이전에 이 칸이 들린 적이 없을 경우
             elif graph[n_x][n_y] == 0 and visit_graph[n_x][n_y][can_break] == 0:
                 visit_graph[n_x][n_y][can_break] = visit_graph[x][y][can_break] + 1
                 queue.append([n_x,n_y,can_break])
