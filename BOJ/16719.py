@@ -1,7 +1,20 @@
 from sys import stdin
-from collections import deque
+ 
+word = list(stdin.readline().strip())
+result = [''] * len(word)
+ 
+def func(string, start):
+    if not string:
+        return
 
-string = list(map(str, stdin.readline().strip()))
-sort_by_alpha = deque(sorted(string))
-print(sort_by_alpha)
+    _min = min(string)
+    index = string.index(_min)
+    result[start + index] = _min
 
+    print("".join(result))
+
+    func(string[index + 1:], start + index + 1)
+    func(string[:index], start)
+ 
+ 
+func(word, 0)
