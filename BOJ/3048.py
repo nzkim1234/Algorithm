@@ -7,7 +7,6 @@ n2_list = list(stdin.readline().strip())
 big_list = n1_list + n2_list
 big_list_direction = ['r'] * n1 + ['l'] * n2
 
-
 t = int(stdin.readline())
 
 for _ in range(t):
