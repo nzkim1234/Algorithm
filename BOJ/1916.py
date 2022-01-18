@@ -1,5 +1,3 @@
-from operator import le
-import queue
 from sys import stdin
 import heapq
 
@@ -22,9 +20,11 @@ heapq.heappush(queue, [0, start -1])
 while queue:
     s_cost, s_node = heapq.heappop(queue)
     
+    # 방문하는 노드가 이미 최솟값일 경우 
     if least_cost[s_node] < s_cost:
         continue
-
+    
+    # 방문하는 노드에 연결된 노드들을 방문하며 값 갱신, 힙 추가
     for node, cost in graph[s_node]:
         if s_cost + cost < least_cost[node]:
             least_cost[node] = s_cost + cost

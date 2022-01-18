@@ -14,6 +14,7 @@ for _ in range(t):
     index = 0
 
     while index <= len(big_list) - 2:
+        # index, index + 1의 진행방향이 다르면, 각 인덱스 교환
         if big_list_direction[index] == 'r' and big_list_direction[index + 1] == 'l':
             exchange = [big_list_direction[index], big_list[index]]
 
