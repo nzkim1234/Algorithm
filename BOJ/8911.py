@@ -50,3 +50,4 @@ for _ in range(t):
                 index = 0
 
     print((max_x - min_x) * (max_y - min_y))
+    
