@@ -1,3 +1,5 @@
+#pypy3
+
 from sys import stdin
 
 r, c, t = map(int, stdin.readline().split())
@@ -110,8 +112,8 @@ for _ in range(t):
 
     # 아래쪽 공기청정기의 동작
     rorate = 0  # 회전을 위한 변수
-    air_x = aircleaner[0][0]  # 공기청정기의 x좌표
-    air_y = aircleaner[0][1]  # 공기청정기의 y좌표
+    air_x = aircleaner[1][0]  # 공기청정기의 x좌표
+    air_y = aircleaner[1][1]  # 공기청정기의 y좌표
     storage = -1  # 이전 값을 저장하기 위한 변수
 
     while True:

@@ -16,7 +16,6 @@ for row in range(n):
     for col in range(n):
         queue = deque()
         rg_queue = deque()
-        is_red_green = False
 
         # 일반시각의 경우
         if visit_graph[row][col] != 1:  # 방문하지 않았다면 방문 처리, 큐에 추가, 구역 증가
