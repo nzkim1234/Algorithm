@@ -17,4 +17,3 @@ for meeting in meeting_time:
         result += 1
 
 print(result)
-
