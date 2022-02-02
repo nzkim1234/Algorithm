@@ -1,56 +1,75 @@
-from multiprocessing import connection
 from sys import stdin
-from itertools import combinations
 from collections import deque
-from tracemalloc import start
-from copy import deepcopy
-n, m = map(int, stdin.readline().split())
+from itertools import combinations
 
+n, m = map(int, stdin.readline().split())
+virus_startpoints = []
 graph = []
-virus_startpoint = []
 position = [[0, 1], [1, 0], [-1, 0], [0, -1]]
-empty_space = 0
+base_empty_space = 0
 
 for row in range(n):
-    one_line = list(map(int,stdin.readline().split()))
-    
+    one_line = list(map(int, stdin.readline().split()))
+
     for col in range(n):
-        if one_line[col] == 2:
-            virus_startpoint.append([row, col])
-            one_line[col] = 0
         if one_line[col] == 0:
-            empty_space += 1
+            base_empty_space += 1
+        elif one_line[col] == 2:
+            virus_startpoints.append([row, col])
+            one_line[col] = -1
 
     graph.append(one_line)
 
-print(empty_space)
-virus_startpoint = list(combinations(virus_startpoint, m))
-start_num = 1
+c_virus_startpoints = list(combinations(virus_startpoints, m))
+case = 1
+result = 1e9
 
-for start_points in virus_startpoint:
-    start_num += 1
-    virus_location = deque()
-    new_empty_space = empty_space - m
-
-    for x, y in start_points:
-        graph[x][y] = start_num
-        virus_location.append([x, y])
-    
+for virus_startpoint in c_virus_startpoints:
+    case += 1
+    virus_queue = deque(virus_startpoint)
+    virus_queue.append([-1, -1])
+    empty_space = base_empty_space
     count = 0
-    new_virus_location = deque()
-    while virus_location:
-        x, y = virus_location.popleft()
+    if empty_space <= 0:
+        result = 0
+        break
+    count += 1
 
-        for p_x, p_y in position:
-            n_x, n_y = x + p_x, y + p_y
-            if 0 <= n_x < n and 0 <= n_y < n:
-                if graph[n_x][n_y] != 1 and graph[n_x][n_y] != start_num:
-                    graph[n_x][n_y] = start_num
-                    new_empty_space -= 1
-                    new_virus_location.append([n_x, n_y])
+    while virus_queue:
+        if count >= result:
+            break
+        x, y = virus_queue.popleft()
 
-        if not virus_location:
-            virus_location = new_virus_location
-            new_virus_location = deque()
+        if empty_space <= 0:
+            break
+
+        if [x, y] == [-1, -1]:
             count += 1
-    print(count)
+            if len(virus_queue) > 0:
+                virus_queue.append([-1, -1])
+            continue
+
+        if graph[x][y] != case:
+            graph[x][y] = case
+        
+        for p_x, p_y in position:
+            n_x = x + p_x
+            n_y = y + p_y
+
+            if 0 <= n_x < n and 0 <= n_y < n:
+                if graph[n_x][n_y] != 1:
+                    if graph[n_x][n_y] != case:
+                        graph[n_x][n_y] = case
+                        if not [n_x, n_y] in virus_startpoints:
+                            empty_space -= 1
+                        virus_queue.append([n_x, n_y])
+
+    if empty_space <= 0:
+        result = min(result, count)
+
+if result == 1e9:
+    print(-1)
+else:
+    print(result)
+
+
