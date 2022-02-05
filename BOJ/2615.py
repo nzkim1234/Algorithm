@@ -1,133 +1,38 @@
 from sys import stdin
 
-graph = []
+n = 19
+arr = [list(map(int, stdin.readline().split())) for _ in range(n)]
+ 
+dx = [1, 1, 0, -1]
+dy = [0, 1, 1, 1]    
+ 
+def result():
+    for x in range(n):
+        for y in range(n):
+            if arr[x][y]:
+                for i in range(4):
+                    nx = x + dx[i]
+                    ny = y + dy[i]
+                    cnt = 1
 
-for _ in range(19):
-    graph.append(list(map(int, stdin.readline().split())))
+                    while 0 <= nx < n and 0 <= ny < n and arr[x][y] == arr[nx][ny]:
+                        cnt += 1
+ 
+                        if cnt == 5:
+                            if 0 <= nx + dx[i] < n and 0 <= ny + dy[i] < n and arr[nx][ny] == arr[nx + dx[i]][ny + dy[i]]:    # 육목 판정 1
+                                break
+                            if 0 <= x - dx[i] < n and 0 <= y - dy[i] < n and arr[x][y] == arr[x - dx[i]][y - dy[i]]:    # 육목 판정 2
+                                break
+                            return arr[x][y], x+1, y+1
+ 
+                        nx += dx[i]
+                        ny += dy[i]
+    return 0, -1, -1
+ 
+num, x, y = result()
 
+print(num)
 
-def in_a_col(x, y, n):
-    count = 0
-    for n_x in range(x, 19):
-        if 0 <= n_x < 19 and graph[n_x][y] == n:
-            count += 1
-        else:
-            break
+if num != 0:
+    print(x, y)
 
-    for n_x in range(x, -1, -1):
-        if 0 <= n_x < 19 and graph[n_x][y] == n:
-            count += 1
-        else:
-            break
-        
-    count -= 1
-
-    if count == 5:
-        return 1
-    else:
-        return 0
-
-
-def in_a_row(x, y, n):
-    count = 0
-    for n_y in range(y, 19):
-        if 0 <= n_y < 19 and graph[x][n_y] == n:
-            count += 1
-        else:
-            break   
-    
-    for n_y in range(y, -1, -1):
-        if 0 <= n_y < 19 and graph[x][n_y] == n:
-            count += 1
-        else:
-            break   
-    
-    count -= 1
-
-    if count == 5:
-        return 1
-    else:
-        return 0
-
-
-def in_a_diagonal(x, y, n):
-    count = 0
-    base = [x, y]
-
-    for _ in range(19):
-        if 0<= x < 19 and 0 <= y < 19 and graph[x][y] == n:
-            count += 1
-        else:
-            break
-        
-        x += 1
-        y += 1
-
-    x, y = base
-
-    for _ in range(19):
-        if 0<= x < 19 and 0 <= y < 19 and graph[x][y] == n:
-            count += 1
-        else:
-            break
-        
-        x -= 1
-        y -= 1
-
-    count -= 1
-
-    if count == 5:
-        return 1
-    else:
-        return 0
-
-
-def in_a_diagonal2(x, y, n):
-    count = 0
-    base = [x, y]
-
-    for _ in range(19):
-        if 0<= x < 19 and 0 <= y < 19 and graph[x][y] == n:
-            count += 1
-        else:
-            break
-        
-        x -= 1
-        y += 1
-
-    x, y = base
-
-    for _ in range(19):
-        if 0<= x < 19 and 0 <= y < 19 and graph[x][y] == n:
-            count += 1
-        else:
-            break
-        
-        x += 1
-        y -= 1
-
-    count -= 1
-
-    if count == 5:
-        return 1
-    else:
-        return 0
-
-
-def win():
-    for row in range(19):
-        for col in range(19):
-            if graph[row][col] == 1:
-                if in_a_col(row, col, 1) + in_a_row(row, col, 1) + in_a_diagonal(row, col, 1) + in_a_diagonal2(row, col, 1):
-                    return [1, row + 1, col + 1]
-            elif graph[row][col] ==2:
-                if in_a_col(row, col, 2) + in_a_row(row, col, 2) + in_a_diagonal(row, col, 2) + in_a_diagonal2(row,col, 1):
-                    return [2, row + 1, col + 1]
-    return [0]
-
-result = win()
-
-print(result[0])
-
-if result[0] > 0:
-    print(result[1], result[2])
