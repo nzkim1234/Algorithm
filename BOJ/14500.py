@@ -6,6 +6,7 @@ graph = []
 for _ in range(n):
     graph.append(list(map(int, stdin.readline().split())))
 
+
 def two_by_three(x, y):
     count = 0
     this_max_num = 0
@@ -21,7 +22,6 @@ def two_by_three(x, y):
         [[x + 1, y], [x +1, y + 1]],
         [[x + 1, y], [x, y + 2]]
     ]
-
     # 범위에 모든 값을 더한다
     for n_x in range(x, x + 2):
         for n_y in range(y, y + 3):

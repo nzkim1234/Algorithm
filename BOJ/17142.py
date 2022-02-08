@@ -8,7 +8,7 @@ graph = []
 position = [[0, 1], [1, 0], [-1, 0], [0, -1]]
 base_empty_space = 0
 
-# 그래프를 입력받으면서 0인 자리 카운팅 , 비활 상태인 바이러스 자리 저장
+# 그래프를 입력받으면서 0인 자리 카운팅 , 비활성 상태인 바이러스 자리 저장
 for row in range(n):
     one_line = list(map(int, stdin.readline().split()))
 
@@ -26,7 +26,7 @@ case = 1
 result = 1e9
 
 for virus_startpoint in c_virus_startpoints:
-    case += 1  # 
+    case += 1 
     virus_queue = deque(virus_startpoint)
     virus_queue.append([-1, -1])  # 시간의 증가를 위해서 추가
     empty_space = base_empty_space

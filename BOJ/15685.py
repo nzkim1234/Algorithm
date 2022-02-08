@@ -10,7 +10,6 @@ for _ in range(n):
     command.append(list(map(int, stdin.readline().split())))
 
 direction = [[0, 1], [-1, 0], [0, -1], [1, 0]]
-stack = []
 
 for y, x, d, g in command:
     graph[x][y] = 1
