@@ -10,12 +10,13 @@ def result():
     for x in range(n):
         for y in range(n):
             if graph[x][y]:
-                
+
                 for i in range(4):
                     nx = x + dx[i]
                     ny = y + dy[i]
                     cnt = 1
 
+                    # 가로, 새로, 우하향, 우상향 방향으로 올라가면서 오목인지 찾기
                     while 0 <= nx < n and 0 <= ny < n and graph[x][y] == graph[nx][ny]:
                         cnt += 1
  

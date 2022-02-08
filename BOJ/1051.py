@@ -12,7 +12,7 @@ result = 1
 for row in range(n):
     for col in range(m):
         length = 0
-
+        
         if graph[row].count(graph[row][col]) > 1:
 
             for col2 in range(col, m):
