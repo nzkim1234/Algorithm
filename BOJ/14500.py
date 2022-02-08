@@ -9,6 +9,8 @@ for _ in range(n):
 def two_by_three(x, y):
     count = 0
     this_max_num = 0
+    
+    # 범위안에 도형을 만족하기 위해 빼야하는 위치
     list_to_minus = [
         [[x, y], [x, y + 1]], 
         [[x + 1, y + 1], [x + 1, y + 2]], 
@@ -20,10 +22,11 @@ def two_by_three(x, y):
         [[x + 1, y], [x, y + 2]]
     ]
 
+    # 범위에 모든 값을 더한다
     for n_x in range(x, x + 2):
         for n_y in range(y, y + 3):
             count += graph[n_x][n_y]
-
+    # 더한 값 - 도형을 만족하기 위해 빼야하는 위치 중 최댓값을 구한다
     for position1, position2 in list_to_minus:
         this_max_num = max(this_max_num, count - graph[position1[0]][position1[1]] - graph[position2[0]][position2[1]])
     
@@ -33,6 +36,8 @@ def two_by_three(x, y):
 def three_by_two(x, y):
     count = 0
     this_max_num = 0
+
+    # 범위안에 도형을 만족하기 위해 빼야하는 위치
     list_to_minus = [
         [[x, y], [x + 1, y]],
         [[x + 1, y + 1], [x + 2, y + 1]], 
@@ -44,10 +49,12 @@ def three_by_two(x, y):
         [[x, y], [x + 2, y]]
     ]
 
+    # 범위에 모든 값을 더한다
     for n_x in range(x, x + 3):
         for n_y in range(y, y + 2):
             count += graph[n_x][n_y]
 
+    # 더한 값 - 도형을 만족하기 위해 빼야하는 위치 중 최댓값을 구한다
     for position1, position2 in list_to_minus:
         this_max_num = max(this_max_num, count - graph[position1[0]][position1[1]] - graph[position2[0]][position2[1]])
     
@@ -57,6 +64,7 @@ def three_by_two(x, y):
 def two_by_two(x, y):
     count = 0
 
+    # 범위에 모든 값을 더한다
     for n_x in range(x, x + 2):
         for n_y in range(y, y + 2):
             count += graph[n_x][n_y]
@@ -67,6 +75,7 @@ def two_by_two(x, y):
 def four_by_one(x, y):
     count = 0
 
+    # 범위에 모든 값을 더한다
     for n_x in range(x, x + 4):
         for n_y in range(y, y + 1):
             count += graph[n_x][n_y]
@@ -77,6 +86,7 @@ def four_by_one(x, y):
 def one_by_four(x, y):
     count = 0
 
+    # 범위에 모든 값을 더한다
     for n_x in range(x, x + 1):
         for n_y in range(y, y + 4):
             count += graph[n_x][n_y]
@@ -88,6 +98,7 @@ max_num = 0
 
 for x in range(n):
     for y in range(m):
+        # 각 경우에 따라 최댓값을 구한다.
         if x + 3 < n:
             max_num = max(max_num, four_by_one(x, y))
         if y + 3 < m:

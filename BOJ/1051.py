@@ -8,6 +8,7 @@ for _ in range(n):
     graph.append(list(map(int, map(str, stdin.readline().strip()))))
 
 result = 1
+
 for row in range(n):
     for col in range(m):
         length = 0
