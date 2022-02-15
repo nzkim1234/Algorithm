@@ -1,36 +1,28 @@
-from re import L
 from sys import stdin
-from math import ceil
 
 n, h = map(int ,stdin.readline().split())
 
-cave = []
+top = [0] * (h + 1)
+bottom = [0] * (h + 1)
 
 for i in range(n):
-    if i % 2 ==0:
-        cave.append(int(stdin.readline()))
+    if i % 2:
+        top[int(stdin.readline())] += 1
     else:
-        cave.append(h - int(stdin.readline()))
-print(cave)
-cave.sort()
-print(cave)
-for i in range(h):
-    if i < ceil(h/2):
-        i += 0.5
-    else:
-        i = h - 1 - i + 0.5
-    print()
-    print(i)
+        bottom[h - int(stdin.readline()) + 1] += 1
 
-    start = 0
-    end = len(cave) - 1
+for i in range(h - 1, 0, -1):
+    top[i] += top[i + 1]
 
-    while start < end:
-        mid = (start + end) // 2
+for i in range(1, h + 1):
+    bottom[i] += bottom[i - 1]
 
-        if cave[mid] > i:
-            end = mid - 1
-        else:
-            start = mid + 1
-        
-    print(mid)
+total = [0] * (h + 1)
+
+for i in range(1, h + 1):
+    total[i] = top[i] + bottom[i]
+
+total = total[1:]
+ans = min(total)
+print(ans, total.count(ans))
+    
