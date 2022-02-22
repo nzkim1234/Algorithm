@@ -12,12 +12,14 @@ count = 1
 while queue:
     r, c = queue.popleft()
 
+    # 한 순환의 끝이면
     if r == -1 and c == -1:
         if queue:
             queue.append([-1, -1])
             count += 1
         continue
-
+    
+    # 이동가능한 범위 탐색
     for p_x, p_y in position:
         n_r = r + p_x
         n_c = c + p_y

@@ -8,14 +8,17 @@ graph[1][0] = 0
 while q:
     s, c = q.popleft()
 
+    # 복사하는 연산
     if graph[s][s] == -1:
         graph[s][s] = graph[s][c] + 1
         q.append([s, s])
 
+    # 복사한 것을 붙여넣는 연산
     if s + c <= n and graph[s + c][c] == -1:
         graph[s + c][c] = graph[s][c] + 1
         q.append([s + c, c])
 
+    # 하나 뺴는 연산
     if s - 1 >= 0 and graph[s-1][c] == -1:
         graph[s - 1][c] = graph[s][c] + 1
         q.append([s - 1, c])

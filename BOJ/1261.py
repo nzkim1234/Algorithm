@@ -1,7 +1,6 @@
 from sys import stdin
 from collections import deque
 
-
 n, m = map(int, stdin.readline().split())
 
 graph = []
@@ -14,6 +13,7 @@ for _ in range(m):
 count_graph[0][0] = 0
 queue = deque([[0, 0]])
 
+# bfs 탐색
 while queue:
     x, y = queue.popleft()
 
@@ -24,6 +24,7 @@ while queue:
         if 0 <= n_x < m and 0 <= n_y < n:
             current_count = count_graph[x][y] + graph[n_x][n_y]
             
+            # 부순 벽의 갯수가 더 적을 때만 갱신하기
             if count_graph[n_x][n_y] > current_count:
                 count_graph[n_x][n_y] = current_count
                 queue.append([n_x, n_y])
