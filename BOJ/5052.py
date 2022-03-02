@@ -12,8 +12,9 @@ for _ in range(t):
     nums.sort()
     able = True
 
-    for i in range(n-1):
-        if(nums[i+1].startswith(nums[i])):
+    for i in range(n - 1):
+        # 일관성이 없을 경우 break
+        if(nums[i + 1].startswith(nums[i])):
             able = False
             break
         
