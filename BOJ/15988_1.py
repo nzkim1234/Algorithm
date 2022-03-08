@@ -11,4 +11,5 @@ for i in range(4, 1000001):
 
 for _ in range(t):
     n = int(stdin.readline())
+
     print(dp[n])
