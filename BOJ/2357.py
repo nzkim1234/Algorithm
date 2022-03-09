@@ -7,14 +7,11 @@ input = lambda: sys.stdin.readline().rstrip()
 
 
 def make_seg(idx, s, e):
-    print()
-    print(seg)
     if s == e:
         seg[idx] = (arr[s], arr[s])  # min, max
         return seg[idx]
 
     mid = (s + e) // 2
-    print(mid)
     l = make_seg(idx * 2, s, mid)
     r = make_seg(idx * 2 + 1, mid + 1, e)
 
@@ -42,7 +39,7 @@ def f(s, e, idx):
 n, m = map(int, input().split())
 arr = [int(input()) for _ in range(n)]
 
-b = math.ceil(math.log2(n)) + 1
+b = math.ceil(math.log2(n))
 node_n = 1 << b
 seg = [0 for _ in range(node_n)]
 make_seg(1, 0, len(arr) - 1)
