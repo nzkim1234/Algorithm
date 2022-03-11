@@ -13,6 +13,6 @@ for i in range(1, 10001):
     if new_num < 10001:
         graph[new_num] = False
 
-for i in range(10001):
+for i in range(1, 10001):
     if graph[i]:
         print(i)
