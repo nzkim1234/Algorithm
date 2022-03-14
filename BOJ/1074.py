@@ -5,6 +5,7 @@ count = 0
 
 def z(n, x, y):
     global count 
+    
     if x == r and y == c:
         print(count)
         quit()
