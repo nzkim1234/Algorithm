@@ -3,6 +3,7 @@ from sys import stdin
 n, m = map(int, stdin.readline().split())
 result = []
 
+
 def dfs(index):
     if len(result) == m:
         print(*result) 
@@ -13,5 +14,6 @@ def dfs(index):
             result.append(i)
             dfs(i + 1)
             result.pop()
+
 
 dfs(1)
