@@ -20,7 +20,6 @@ def make_seg(idx, s, e):
 
 
 def f(s, e, idx):
-
     # 탐색범위 s~e
     if e < a or b < s:  # 범위 밖
         return (1000000000, 0)
@@ -49,3 +48,5 @@ for _ in range(m):
     a, b = a - 1, b - 1  # idx
     ans = f(0, len(arr) - 1, 1)
     print(ans[0], ans[1])
+
+    
