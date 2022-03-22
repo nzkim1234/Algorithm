@@ -19,7 +19,7 @@ def dfs(x, y, n):
                 
                 dfs(x, y, n)  # 1사분면
                 dfs(x, y + n, n)  # 2사분면
-                dfs(x + n, y, n)  # 3사분연
+                dfs(x + n, y, n)  # 3사분면
                 dfs(x + n, y + n, n)  # 4사분면
                 
                 print(')', end = '')
