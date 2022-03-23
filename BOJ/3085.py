@@ -18,32 +18,38 @@ for i in range(n):
             current_result = 0
 
             if 0<= n_x < n and 0 <= n_y < n:
-                #if graph[i][j] != graph[n_x][n_y]:
-                change_value = graph[i][j]
-                graph[i][j] = graph[n_x][n_y]
-                graph[n_x][n_y] = change_value
-
-                for x in range(n):
-                    result = max(
-                        result,
-                        graph[x].count('P'),
-                        graph[x].count('C'),
-                        graph[x].count('Z'),
-                        graph[x].count('Y'),
-                    )
+                if graph[i][j] != graph[n_x][n_y]:
+                    graph[i][j], graph[n_x][n_y] = graph[n_x][n_y], graph[i][j]
                     
-                for y in range(n):
-                    candy_dic = {'P': 0, 'C':0, 'Z':0, 'Y':0}
+                    
+                    for x in range(n):
+                        current_result = 0
+                        start = graph[x][0]
+                        for y in range(n):
+                            if graph[x][y] == start:
+                                current_result += 1
+                            else:
+                                if result < current_result:
+                                    result = current_result
+                                current_result = 1
+                                start = graph[x][y]
+                            if result < current_result:
+                                result = current_result
 
-                    for f_x in range(n):
-                        candy_dic[graph[f_x][y]] += 1
-                        
-                    result = max(result, max(candy_dic.values()))
-                
-                change_value = graph[i][j]
-                graph[i][j] = graph[n_x][n_y]
-                graph[n_x][n_y] = change_value
+                    for y in range(n):
+                        current_result = 0
+                        start = graph[0][y]
+                        for x in range(n):
+                            if graph[x][y] == start:
+                                current_result += 1
+                            else:
+                                if result < current_result:
+                                    result = current_result
+                                current_result = 1
+                                start = graph[x][y]
+                        if result < current_result:
+                            result = current_result
+
+                    graph[i][j], graph[n_x][n_y] = graph[n_x][n_y], graph[i][j]
 
 print(result)
-
-
