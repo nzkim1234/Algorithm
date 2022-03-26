@@ -1,26 +1,27 @@
-from sys import stdin
+N, M= map(int, input().split())
+arr = list(map(int, input().split()))
 
-n, m = map(int, stdin.readline().split())
-graph = list(map(int,stdin.readline().split()))
-end = sum(graph)
-start = min(graph)
+lesson_total = sum(arr)
+left, right = max(arr), sum(arr)
+# print(left, right)
+answer = 1e9
 
-while start <= end:
-    mid = (start + end) // 2
-    count = 0
-    current_sum = graph[0]
-    
-    for i in range(1, n):
-        if current_sum + graph[i] > mid:
-            count += 1
-            current_sum = graph[i]
+while left <= right:
+    mid = (left + right) // 2
+
+    # 조건 만족 확인
+    count, temp = 0, 0
+    for i in range(len(arr)):
+        if temp + arr[i] <= mid:
+            temp += arr[i]
         else:
-            current_sum += graph[i]
+            temp = arr[i]
+            count += 1
 
+    if count <= M - 1:  # 가능한 경우 (더 작은 값이 있는지 확인해야 한다)
+        right = mid - 1
+        answer = min(answer, mid)  # answer 값 업데이트
+    else:  # 값을 증가시켜야 한다.
+        left = mid + 1
 
-    print(start, end, mid, count)
-    if count >= m:
-        start = mid + 1
-    else:
-        end = mid - 1
-print(end)
+print(answer)

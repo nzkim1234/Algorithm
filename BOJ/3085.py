@@ -19,9 +19,9 @@ for i in range(n):
 
             if 0<= n_x < n and 0 <= n_y < n:
                 if graph[i][j] != graph[n_x][n_y]:
-                    graph[i][j], graph[n_x][n_y] = graph[n_x][n_y], graph[i][j]
+                    graph[i][j], graph[n_x][n_y] = graph[n_x][n_y], graph[i][j]  # 두 사탕을 교환
                     
-                    
+                    # 열의 연속된 사탕의 갯수
                     for x in range(n):
                         current_result = 0
                         start = graph[x][0]
@@ -31,25 +31,31 @@ for i in range(n):
                             else:
                                 if result < current_result:
                                     result = current_result
+
                                 current_result = 1
                                 start = graph[x][y]
+
                             if result < current_result:
                                 result = current_result
 
+                    # 행의 연속된 사탕의 갯수
                     for y in range(n):
                         current_result = 0
                         start = graph[0][y]
+
                         for x in range(n):
                             if graph[x][y] == start:
                                 current_result += 1
                             else:
                                 if result < current_result:
                                     result = current_result
+
                                 current_result = 1
                                 start = graph[x][y]
+
                         if result < current_result:
                             result = current_result
 
-                    graph[i][j], graph[n_x][n_y] = graph[n_x][n_y], graph[i][j]
+                    graph[i][j], graph[n_x][n_y] = graph[n_x][n_y], graph[i][j]  # 다시 원래대로 교환
 
 print(result)
