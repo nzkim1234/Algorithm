@@ -18,7 +18,7 @@ while start <= end:
     count = 1
 
     for i in range(1, n):
-        if house[i] >= old+mid:
+        if house[i] >= old + mid:
             count += 1
             old = house[i]
     
