@@ -16,7 +16,7 @@ while start <= end:
     for i in range(n):
         if current_range + graph[i] <= mid:  # 중간값보다 작을 시 한편의 강의에 추가
             current_range += graph[i]
-        else:  # 중간값보다 클 시 새로운 한편의 강으 추가 
+        else:  # 중간값보다 클 시 새로운 한편의 강의 추가 
             current_range = graph[i] 
             count += 1
 
