@@ -1,4 +1,3 @@
-#PyPy3
 from sys import stdin
 
 n, c = map(int, stdin.readline().split())
