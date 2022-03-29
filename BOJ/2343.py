@@ -1,27 +1,30 @@
-N, M= map(int, input().split())
-arr = list(map(int, input().split()))
+from sys import stdin
 
-lesson_total = sum(arr)
-left, right = max(arr), sum(arr)
-# print(left, right)
-answer = 1e9
+n, m= map(int, stdin.readline().split())
+graph = list(map(int, stdin.readline().split()))
 
-while left <= right:
-    mid = (left + right) // 2
+start = max(graph)
+end = sum(graph)
+result = 1e9
 
-    # 조건 만족 확인
-    count, temp = 0, 0
-    for i in range(len(arr)):
-        if temp + arr[i] <= mid:
-            temp += arr[i]
-        else:
-            temp = arr[i]
+while start <= end:
+    mid = (start + end) // 2
+
+    count = 0
+    current_range = 0
+    # 리스트를 돌면서 강의 영상의 길이 확인
+    for i in range(n):
+        if current_range + graph[i] <= mid:  # 중간값보다 작을 시 한편의 강의에 추가
+            current_range += graph[i]
+        else:  # 중간값보다 클 시 새로운 한편의 강으 추가 
+            current_range = graph[i] 
             count += 1
 
-    if count <= M - 1:  # 가능한 경우 (더 작은 값이 있는지 확인해야 한다)
-        right = mid - 1
-        answer = min(answer, mid)  # answer 값 업데이트
-    else:  # 값을 증가시켜야 한다.
-        left = mid + 1
+    # 강의의 영상이 많으면 start 증가, 적으면 end 감소
+    if count <= m - 1:
+        end = mid - 1
+        result = min(result, mid)
+    else:
+        start = mid + 1
 
-print(answer)
+print(result)
