@@ -1,32 +1,28 @@
 from sys import stdin
 from collections import deque
-
-n, m = map(int, stdin.readline().split())
-graph = [[] for _ in range(n)]
-
+n, m = map(int, input().split())
+graph = [list() for _ in range(n + 1)]
 for _ in range(n - 1):
     s, e, v = map(int, stdin.readline().split())
-    graph[s - 1].append([e - 1, v])
-    graph[e - 1].append([s - 1, v])
+    graph[s].append([e, v])
+    graph[e].append([s, v])
 
 for _ in range(m):
-    s, e = map(int ,stdin.readline().split())
-    visit_graph = [-1] * n
-    queue = deque(graph[s - 1])
-
-    visit_graph[s - 1] = 0
-    result = 0
+    s, e = map(int, input().split())
+    queue = deque()
+    queue.append(s)
+    visit_graph = [-1] * (n + 1)
+    visit_graph[s] = 0
 
     while queue:
-        destination, value = queue.popleft()
+        destination = queue.popleft()
 
-        if destination == e - 1:
-            result += value
+        if destination == e:
             break
 
-        if visit_graph[destination] == -1:
-            result += value
-            visit_graph[destination] = 0
-            for next in graph[destination]:
-                queue.append(next)
-    print(result)
+        for next_node, value in graph[destination]:
+            if visit_graph[next_node] == -1:
+                visit_graph[next_node] = visit_graph[destination] + value
+                queue.append(next_node)
+
+    print(visit_graph[e])
