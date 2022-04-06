@@ -1,7 +1,9 @@
 from sys import stdin
 from collections import deque
+
 n, m = map(int, input().split())
 graph = [list() for _ in range(n + 1)]
+
 for _ in range(n - 1):
     s, e, v = map(int, stdin.readline().split())
     graph[s].append([e, v])
