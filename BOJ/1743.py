@@ -36,6 +36,6 @@ for i in range(n):
                         graph[n_y][n_x] = 0
                         queue.append([n_y, n_x])
 
-            big_trash =max(big_trash, trash_size)
+            big_trash = max(big_trash, trash_size)
 
 print(big_trash)
