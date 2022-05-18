@@ -24,7 +24,7 @@ def change(a, p, d):
             if i != d: 
                 change(i, p, a)
 
-# 
+# 입력 받기
 for _ in range(n-1):
     a, b, p, q = map(int, stdin.readline().split())
     graph[a].append(b)
