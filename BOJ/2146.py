@@ -3,17 +3,24 @@ from collections import deque
 
 
 def find_island(i, j, start_num):
+    global answer
     result = 1
     queue = deque()
     queue.append([i, j])
     queue.append([-1, -1])
+
     while queue:
         x, y = queue.popleft()
+
+        if result >= answer:
+            break
         
-        if x + y == -2:
+        if x == -1 and y == -1:
             result += 1
+
             if queue:
                 queue.append([-1, -1])
+
             continue
         
         for p_x, p_y in position:
@@ -24,9 +31,10 @@ def find_island(i, j, start_num):
                 if graph[n_x][n_y] != start_num:
                     if graph[n_x][n_y] == 0:
                         queue.append([n_x, n_y])
-                    elif graph[n_x][n_y] != start_num:
-                        return int(result)
 
+                    elif graph[n_x][n_y] != start_num:
+                        answer = result
+                        
 
 n = int(stdin.readline())
 graph = []
@@ -40,7 +48,7 @@ for _ in range(n):
 
 for x in range(n):
     for y in range(n):
-        if visit_graph[x][y] == False and graph[x][y] == 1:
+        if not visit_graph[x][y]and graph[x][y] == 1:
             num += 1
             queue = deque()
             queue.append([x, y])
@@ -55,7 +63,7 @@ for x in range(n):
                     n_y = p_y + c_y
 
                     if 0 <= n_x < n and 0 <= n_y < n:
-                        if visit_graph[n_x][n_y] == False and graph[n_x][n_y] == 1:
+                        if not visit_graph[n_x][n_y]  and graph[n_x][n_y] == 1:
                             visit_graph[n_x][n_y] = True
                             graph[n_x][n_y] = num
                             queue.append([n_x, n_y])
@@ -68,7 +76,7 @@ for x in range(n):
                 n_y = y + p_y
                 
                 if 0 <= n_x < n and 0 <= n_y < n:
-                    if graph[n_x][n_y] == 0:
-                        answer = min(answer, find_island(n_x, n_y, graph[x][y]))
+                    if not graph[n_x][n_y]:
+                        find_island(n_x, n_y, graph[x][y])
 
 print(answer)
