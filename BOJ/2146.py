@@ -15,7 +15,7 @@ for _ in range(n):
 # bfs를 돌면서 섬의 위치를 파악 하나의 섬에 통일된 번호(num) 부여
 for x in range(n):
     for y in range(n):
-        if not visit_graph[x][y]and graph[x][y] == 1:
+        if not visit_graph[x][y] and graph[x][y] == 1:
             num += 1
             queue = deque()
             queue.append([x, y])
@@ -30,7 +30,7 @@ for x in range(n):
                     n_y = p_y + c_y
 
                     if 0 <= n_x < n and 0 <= n_y < n:
-                        if not visit_graph[n_x][n_y]  and graph[n_x][n_y] == 1:
+                        if not visit_graph[n_x][n_y] and graph[n_x][n_y] == 1:
                             visit_graph[n_x][n_y] = True
                             graph[n_x][n_y] = num
                             queue.append([n_x, n_y])
@@ -69,4 +69,4 @@ for x in range(n):
                             elif graph[n_x][n_y] != num:  # 다른 섬일 경우
                                 answer = min(distance - 1, answer)
 
-print(answer )
+print(answer)
