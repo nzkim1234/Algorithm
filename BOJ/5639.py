@@ -3,6 +3,7 @@ setrecursionlimit(10**6)
 
 nums = []
 
+# 입력이 없을 때 까지 받아주기
 while True:
     try:
         num = int(stdin.readline())
@@ -11,6 +12,7 @@ while True:
         break
 
 
+#후위 순회 계산
 def order(first, end):
     if first >= end:
         return
@@ -21,6 +23,7 @@ def order(first, end):
         if nums[first] < nums[i]:
             mid = i
             break
+
     order(first+1, mid - 1)
     order(mid, end)
     print(nums[first])
