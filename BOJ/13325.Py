@@ -15,12 +15,13 @@ for i in range(len(tree) - 1, 0, -1):
 
             if line[j] < tree[i] - tree[i * 2 + r]:
                 line[j] = tree[i] - tree[i * 2 + r]
+                
     else:  # 자식노드가 없을 경우
         tree[i] = max(line[i * 2] , line[i * 2 - 1])  # 노드의 최대 값을 구해줌
         
         # 간선의 길이를 맞춰준다.
         for j in range(i * 2 - 1, i * 2 + 1):
-            if line[j] <= tree[i]:
+            if line[j] < tree[i]:
                 line[j] = tree[i]
 
 print(sum(line))
