@@ -50,5 +50,3 @@ for _ in range(t):
         
     else:
         print(-max_heap[0][0], min_heap[0][0])
-
-        
