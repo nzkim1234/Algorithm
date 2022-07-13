@@ -1,3 +1,5 @@
+# pypy3
+
 from sys import stdin
 from collections import deque
 from copy import deepcopy
@@ -21,6 +23,7 @@ def bfs():
             if new_graph[x][y] == 2:
                 queue.append([x, y])
     
+    # bfs 탐색
     while queue:
         c_x, c_y = queue.popleft()
 

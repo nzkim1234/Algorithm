@@ -9,10 +9,6 @@ result_graph = [[0] * n for _ in range(n)]
 
 
 def dfs(c_x, c_y):
-
-    for i in result_graph:
-        print(i)
-    print()
     if result_graph[c_x][c_y]:
         return result_graph[c_x][c_y]
 
@@ -23,7 +19,7 @@ def dfs(c_x, c_y):
 
         if 0 <= n_x < n and 0 <= n_y < n:  
             if graph[n_x][n_y] > graph[c_x][c_y]:
-                result_graph[c_x][c_y] = max(result_graph[c_x][c_y], dfs(n_x, n_y) + 1)
+                result_graph[c_x][c_y] = max(result_graph[c_x][c_y], dfs(n_x, n_y) + 1)  # 각 좌표에서 얻을 수 있는 최대값을 구함
     
     return result_graph[c_x][c_y]
 

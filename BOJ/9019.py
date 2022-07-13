@@ -1,3 +1,5 @@
+#pypy 3
+
 from sys import stdin
 from collections import deque
 
@@ -19,7 +21,8 @@ for _ in range(t):
 
         next_num = 2 * num % 10000
         
-        if next_num < 10000 and not bool(graph[next_num]):
+        # 각 숫자에 D,S,L,R에 맞게 계산 후 문자열을 graph[num]에 저장
+        if next_num < 10000 and not graph[next_num]:
             q.append(next_num)
             graph[next_num] = graph[num] + 'D'
             
