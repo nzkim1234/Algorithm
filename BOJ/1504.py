@@ -10,24 +10,21 @@ for _ in range(e):
     graph[e]. append([s, v])
 
 v1, v2 = map(int, stdin.readline().split())
-visit_graph = [1e9] * (n + 1)
+value_graph = [1e9] * (n + 1)
+visit_graph = [False] * (n + 1)
 queue = []
-heapq.heappush(queue, [0, 1, [False, False]])
-visit_graph[1] = 0
+result = 0
+heapq.heappush(queue, [0, v1, visit_graph])
+value_graph[v1] = 0
+visit_graph[v1] = True
 
 while queue:
-    value, node, visited_node = heapq.heappop(queue)
-    print(node, value)
-    print(queue)
+    value, node, visit_graph = heapq.heappop(queue)
+
     for next_node, next_value in graph[node]:
-        print(visit_graph)
-        if visit_graph[next_node] > value + next_value:
-            if next_node == v1:
-                visited_node[0] = True
-            elif next_node == v2:
-                visited_node[1] = True
-            
-            visit_graph[next_node] = value + next_value
-            heapq.heappush(queue, [next_value, next_node, visited_node])
-    
-        
+        if value_graph[next_node] > next_value + value:
+            value_graph[next_node] = next_value + value
+            visit_graph[next_node] = True
+            heapq.heappush(queue, [next_value, next_node, visit_graph])
+
+print(visit_graph, value_graph)
