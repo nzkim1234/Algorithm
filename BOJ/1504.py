@@ -1,3 +1,4 @@
+import queue
 from sys import stdin
 import heapq
 
@@ -10,21 +11,31 @@ for _ in range(e):
     graph[e]. append([s, v])
 
 v1, v2 = map(int, stdin.readline().split())
-value_graph = [1e9] * (n + 1)
-visit_graph = [False] * (n + 1)
-queue = []
-result = 0
-heapq.heappush(queue, [0, v1, visit_graph])
-value_graph[v1] = 0
-visit_graph[v1] = True
 
-while queue:
-    value, node, visit_graph = heapq.heappop(queue)
+def calc(start):
+    visit_graph = [1e9] * (n + 1)
+    visit_graph[start] = 0
+    queue = []
+    heapq.heappush(queue, [0, start])
 
-    for next_node, next_value in graph[node]:
-        if value_graph[next_node] > next_value + value:
-            value_graph[next_node] = next_value + value
-            visit_graph[next_node] = True
-            heapq.heappush(queue, [next_value, next_node, visit_graph])
+    while queue:
+        value, node = heapq.heappop(queue)
 
-print(visit_graph, value_graph)
+        for next_node, next_value in graph[node]:
+            sum_value = value + next_value
+
+            if visit_graph[next_node] > sum_value:
+                visit_graph[next_node] = sum_value
+                heapq.heappush(queue, [sum_value, next_node])
+    
+    return visit_graph
+
+first = calc(1)
+result_v1 = calc(v1)
+result_v2 = calc(v2)
+result = min(first[v1] + result_v1[v2] + result_v2[n], first[v2] + result_v1[n] + result_v2[v1])
+
+if result < 1e9:
+    print(result)
+else:
+    print(-1)
