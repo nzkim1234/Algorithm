@@ -12,15 +12,18 @@ while queue:
 
     if current == k:
         break
-
+    
+    # 순간이동은 시간 +0 
     if 0 <= current * 2 <= 100000 and time < graph[current * 2]:
         graph[current * 2] = time
         heapq.heappush(queue, [time, current * 2])
 
+    # +1 은 시간 +1
     if 0 <= current + 1 <= 100000 and time < graph[current + 1]:
         graph[current + 1] = time + 1
         heapq.heappush(queue, [time + 1, current + 1])
-        
+
+    # -1 은 시간 -1        
     if 0 <= current - 1 <= 100000 and time < graph[current - 1]:
         graph[current - 1] = time + 1
         heapq.heappush(queue, [time + 1, current - 1])

@@ -1,4 +1,3 @@
-import queue
 from sys import stdin
 import heapq
 
@@ -12,6 +11,7 @@ for _ in range(e):
 
 v1, v2 = map(int, stdin.readline().split())
 
+# 다익스트라 탐색
 def calc(start):
     visit_graph = [1e9] * (n + 1)
     visit_graph[start] = 0
@@ -30,9 +30,11 @@ def calc(start):
     
     return visit_graph
 
-first = calc(1)
-result_v1 = calc(v1)
-result_v2 = calc(v2)
+first = calc(1)  # 첫 노드에서 최소값
+result_v1 = calc(v1)  # v1 노드에서의 최소값 
+result_v2 = calc(v2)  # v2 노드에서의 최소값
+
+# 1 -> v1 -> v2 -> n or 1 -> v2 -> v1 -> n
 result = min(first[v1] + result_v1[v2] + result_v2[n], first[v2] + result_v1[n] + result_v2[v1])
 
 if result < 1e9:

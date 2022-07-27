@@ -32,6 +32,7 @@ def calc(start):
     return length_graph
 
 
+# 각 학생마다 다익스트라로 값을 구해준다.
 for i in range(1, n + 1):
     arrive = calc(i)
     return_back = calc(x)
