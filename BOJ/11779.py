@@ -4,30 +4,31 @@ import heapq
 n = int(stdin.readline())
 m = int(stdin.readline())
 graph = [[] for _ in range(n + 1)]
-visit_graph = [[1e9, [], 0] for _ in range(n + 1)]
 
-for b in range(1, m + 1):
+for _ in range(m):
     s, e, v = map(int, stdin.readline().split())
-    graph[s].append([b, e, v])
+    graph[s].append([e, v])
 
 start, end = map(int, stdin.readline().split())
 
-queue = []
-visit_graph[start][0] = 0
-visit_graph[start][1] = [1]
-visit_graph[start][2] = 1
-heapq.heappush(queue, [0, start])
+visit_graph = [1e9] * (n + 1)
+bus_path = [[] for _ in range(n + 1)]
+queue = [[0, start, [start]]]
+visit_graph[start] = 0
 
 while queue:
-    value, node= heapq.heappop(queue)
+    value, node, path = heapq.heappop(queue)
 
-    for b, e, v in graph[node]:
-        if visit_graph[e][0] > value + v:
-            visit_graph[e][0] = value + v
-            visit_graph[e][1] = visit_graph[node][1] + [e]
-            visit_graph[e][2] = visit_graph[node][2] + 1
-            heapq.heappush(queue, [value + v, e])
+    if value > visit_graph[node]:
+        continue
+    
+    for e, v in graph[node]:
+        if value + v < visit_graph[e]:
+            v += value
+            visit_graph[e] = v
+            bus_path[e] = path + [e]
+            heapq.heappush(queue, [ v, e, path + [e]])
 
-print(visit_graph[end][0])
-print(visit_graph[end][2])
-print(*visit_graph[end][1])
+print(visit_graph[end])
+print(len(bus_path[end]))
+print(*bus_path[end])
