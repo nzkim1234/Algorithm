@@ -14,7 +14,7 @@ visit_graph[start] = plus_value[start]
 result = False
 for i in range(n + 1):
     current = visit_graph[end]
-        if current == -1e9:
+    if current == -1e9:
         print('gg')
         quit()
     for j in range(n):

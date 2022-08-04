@@ -15,6 +15,7 @@ for _ in range(tc):
         s, e, t = map(int,stdin.readline().split())
         graph[s].append([e, -t])
 
+    # 벨만-포드 
     result = False
     visit_graph = [1e9] * (n + 1)
     visit_graph[1] = 0
@@ -24,6 +25,8 @@ for _ in range(tc):
             for node, value in graph[j]:
                 if visit_graph[node] > visit_graph[j] + value:
                     visit_graph[node] = visit_graph[j] + value
+                    
+                    # n번째 반복에서도 값이 변한다면 음수 간선이 있다는 뜻이다.
                     if i == n:
                         result = True
     
