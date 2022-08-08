@@ -1,39 +1,51 @@
-from sys import stdin
+def check(E):
+    visit = [0] * N
+    q = [E]
+    while q:
+        a = q.pop()
+        if a == End:
+            return True
+        visit[a] = 1
+        for b, c in network[a]:
+            if visit[b] == 0:
+                q.append(b)
+    return False
 
-n, start, end, m = map(int, stdin.readline().split())
-graph = [[] for _ in range(n)]
 
-for _ in range(m):
-    s, e, v = map(int, stdin.readline().split())
-    graph[s].append([e, -v])
-
-plus_value = list(map(int, stdin.readline().split()))
-
-visit_graph = [-1e9] * n
-visit_graph[start] = plus_value[start]
-result = False
-for i in range(n + 1):
-    current = visit_graph[end]
-    if current == -1e9:
-        print('gg')
-        quit()
-    for j in range(n):
-        for node, value in graph[j]:
-            if visit_graph[j] != -1e9 and visit_graph[node] < visit_graph[j] + value + plus_value[node]:
-                visit_graph[node] = visit_graph[j] + value + plus_value[node]
-                if i == n:
-                    check = [0] * n
-                    queue = [node]
-                    while queue:
-                        current_node = queue.pop()
-                        if current_node == end:
+def BF():
+    for i in range(N+1):
+        if sections[End] == -float('inf') and i == N:
+            print('gg')
+            return
+        for j in range(N):
+            if sections[j] == -float('inf'):
+                continue
+            for E, T in network[j]:
+                if sections[j] + T > sections[E]:
+                    sections[E] = sections[j] + T
+                    if i == N:
+                        if check(E):
                             print('Gee')
-                            quit()
-                        check[current_node] = 1
-                        for next_node, value in graph[current_node]:
-                            if check[next_node] == 0:
-                                queue.append(next_node)
+                            return False
+    return True
 
 
-
-print(visit_graph[end])
+N, Start, End, M = map(int, input().split())
+sections = [-float('inf')] * N
+network = [[] for i in range(N)]
+for i in range(M):
+    S, E, T = map(int, input().split())
+    network[S].append([E, T])
+salary = list(map(int, input().split()))
+sections[Start] = salary[Start]
+print(network)
+print(salary)
+for i in range(len(salary)):
+    for j in range(len(network[i])):
+        for k in range(len(salary)):
+            if network[i][j][0] == k:
+                print(network[i], salary[i])
+                network[i][j][1] = salary[k] - network[i][j][1]
+print(network)
+if BF():
+    print(sections[End])

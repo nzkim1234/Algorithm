@@ -1,32 +1,48 @@
 from sys import stdin
 
-n, m = map(int, stdin.readline().split())
-graph = [[] for _ in range(n + 1)]
+n, start, end, m = map(int, stdin.readline().split())
+graph = [[] for _ in range(n)]
 
 for _ in range(m):
-    a, b, c = map(int, stdin.readline().split())
-    graph[a].append([b, c])
+    s, e, v = map(int, stdin.readline().split())
+    graph[s].append([e, v])
 
-# 벨만 포드 탐색
-visit_graph = [1e9] * (n + 1)
-visit_graph[1] = 0
-result = True
+plus_value = list(map(int, stdin.readline().split()))
 
-for i in range(1, n + 1):
-    for j in range(1, n + 1):
+visit_graph = [-1e9] * n
+visit_graph[start] = plus_value[start]
+result = False
+for i in range(n):
+    for j in range(len(graph[i])):
+        for k in range(n):
+            if graph[i][j][0] == k:
+                graph[i][j][1] = plus_value[k] - graph[i][j][1]
+
+for i in range(n + 1):
+    current = visit_graph[end]
+    if current == -1e9 and i == n:
+        print('gg')
+        quit()
+    for j in range(n):
+        if visit_graph[j] == -1e9:
+            continue
         for node, value in graph[j]:
-            if visit_graph[j] != 1e9 and visit_graph[node] > visit_graph[j] + value:
-                visit_graph[node] = visit_graph[j] + value
-
-                # n번째 반복에서도 값이 변한다면 음수 간선이 있다는 뜻이다.
+            if visit_graph[j] != -1e9 and visit_graph[node] < visit_graph[j] + value + plus_value[node]:
+                visit_graph[node] = visit_graph[j] + value + plus_value[node]
                 if i == n:
-                    result = False
+                    check = [0] * n
+                    queue = [node]
+                    while queue:
+                        current_node = queue.pop()
+                        if current_node == end:
+                            print('Gee')
+                            quit()
+                        check[current_node] = 1
+                        for next_node, value in graph[current_node]:
+                            if check[next_node] == 0:
+                                queue.append(next_node)
 
-if not result:
-    print(-1)
-else:
-    for i in visit_graph[2::]:
-        if i >= 1e9:
-            print(-1)
-        else:
-            print(i)
+
+
+print(visit_graph[end])
+
