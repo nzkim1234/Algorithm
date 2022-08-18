@@ -19,4 +19,3 @@ def dfs(start, size):
 for i in range(n):
     answer = [nums[i]]
     dfs(i, 1)
-
