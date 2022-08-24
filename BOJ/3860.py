@@ -1,64 +1,67 @@
-from sys import stdin
-
-while True:    
-    w, h = map(int, stdin.readline().split())
-
-    if w == 0 and h == 0:
+while True:
+    w, h = map(int,input().split())
+    
+    if w==0 and h==0:
         break
-
-    graph = [[1e9 for _ in range(w)] for _ in range(h)]
-    g = int(stdin.readline())
+    
+    graph = [ [0 for _ in range(h)]for _ in range(w) ]
+    hole=[[0]]
+    g = int(input())
 
     for _ in range(g):
-        x, y = map(int,stdin.readline().split())
-        graph[y][x] = 'hole'
+        x,y = map(int,input().split())
+        graph[x][y] = -1
+    
+    e = int(input())
+    
+    for i in range(1,e+1):
+        x,y, hx,hy, t = map(int,input().split())    
+        graph[x][y] = i
+        hole.append([hx,hy,t])
 
-    e = int(stdin.readline())
-    hole = dict()
+    dist = [ [1e9 for _ in range(h)] for _ in range(w) ]
+    dist[0][0]=0
 
-    for _ in range(e):
-        in_x, in_y, out_x, out_y, value = map(int, stdin.readline().split())
-        hole[str(in_y) + ',' + str(in_x)] = [out_y, out_x, value]
-
-    position = [[0, -1], [0, 1], [1, 0], [-1, 0]]
-    graph[0][0] = 0
-
-
-    def calc():
-        for i in range(w * h):
-            for y in range(h):
-                for x in range(w):
-                    if x == w - 1 and y == h - 1 or graph[y][x] == 'hole':
+    
+    
+    def bf():
+        for count in range(h*w):
+            for x in range(w):
+                for y in range(h):
+                    
+                    if x==w-1 and y==h-1 or graph[x][y]==-1:
                         continue
                     
-                    if str(y) + ',' + str(x) in hole.keys():
-                        hole_y, hole_x, value = hole[str(y) + ',' + str(x)]
+                    elif graph[x][y] >=1:
+                        outX,outY,outTime = hole[ graph[x][y] ]
 
-                        if graph[hole_y][hole_x] > graph[y][x] + value:
-                            graph[hole_y][hole_x] = graph[y][x] + value
+                        if dist[outX][outY] > dist[x][y] + outTime :
+                            dist[outX][outY] = dist[x][y] + outTime 
 
-                            if i == h * w - 1:
-                                return False
-                    
-                    else:
-                        for p_y, p_x in position:
-                            n_y = y + p_y
-                            n_x = x + p_x
-                            
-                            if 0 <= n_y < h and 0 <= n_x < w and graph[n_y][n_x] != 'hole':
-                                if graph[n_y][n_x] > graph[y][x] + 1:
-                                    graph[n_y][n_x] = graph[y][x] + 1
-                                    
-                                    if i == h * w - 1:
-                                        return False
-        return graph[h - 1][w - 1]
+                            if count == h*w-1 :
+                                return -1e9
+                          
+                    elif graph[x][y]==0:
+                        for nx,ny in ([x,y+1], [x,y-1], [x+1,y], [x-1,y]):
 
-    answer = calc()
 
-    if not answer:
+
+                            if 0<=nx<w and 0<=ny<h : 
+                                if graph[nx][ny] >=0 :
+                                    if dist[nx][ny] > dist[x][y]+1:
+                                        dist[nx][ny] = dist[x][y]+1
+                                        
+                                        if count == h*w-1:
+                                            return -1e9
+                                            # if check(nx,ny):
+                                            #     return False
+                                   
+        return dist[w-1][h-1]
+    
+    result = bf()
+    if result == float('-inf') :
         print('Never')
+    elif result == 1e9:
+        print('Impossible')
     else:
-        if answer == 1e9:
-            print('Impossible')
-        else:
-            print(answer)
+        print(result)                  
