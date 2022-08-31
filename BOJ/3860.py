@@ -3,15 +3,15 @@ from sys import stdin
 while True:
     w, h = map(int,stdin.readline().split())
     
-    if w==0 and h==0:
+    if w == 0 and h == 0:
         break
     
-    hole_graph = [ [0 for _ in range(h)]for _ in range(w) ]
-    hole=[0]
+    hole_graph = [[0 for _ in range(h)]for _ in range(w)]
+    hole = [0]
     g = int(stdin.readline())
 
     for _ in range(g):
-        x, y = map(int,stdin.readline().split())
+        x, y = map(int, stdin.readline().split())
         hole_graph[x][y] = -1
     
     e = int(stdin.readline())
@@ -21,23 +21,23 @@ while True:
         hole_graph[in_x][in_y] = i
         hole.append([out_x, out_y, value])
 
-    graph = [ [float('inf') for _ in range(h)] for _ in range(w) ]
-    graph[0][0]=0
+    graph = [[float('inf') for _ in range(h)] for _ in range(w)]
+    graph[0][0] = 0
     position = [[0,1], [1, 0], [0,-1], [-1, 0]]
     
     
     def dfs():
-        for count in range(h*w):
+        for count in range(h * w):
             for x in range(w):
                 for y in range(h):
                     if x == w - 1 and y == h - 1 or hole_graph[x][y] == -1:
                         continue
                     
                     if hole_graph[x][y] >= 1:
-                        outX,outY,outTime = hole[hole_graph[x][y]]
+                        out_x, out_y, value = hole[hole_graph[x][y]]
 
-                        if graph[outX][outY] > graph[x][y] + outTime :
-                            graph[outX][outY] = graph[x][y] + outTime 
+                        if graph[out_x][out_y] > graph[x][y] + value :
+                            graph[out_x][out_y] = graph[x][y] + value 
 
                             if count == h * w - 1 :
                                 return float('-inf')
@@ -47,7 +47,7 @@ while True:
                             n_x = x + p_x
                             n_y = y + p_y
 
-                            if 0<=n_x<w and 0<=n_y<h : 
+                            if 0<= n_x <w and 0<= n_y <h : 
                                 if hole_graph[n_x][n_y] >=0 :
                                     if graph[n_x][n_y] > graph[x][y] + 1:
                                         graph[n_x][n_y] = graph[x][y] + 1
@@ -67,4 +67,4 @@ while True:
             print('Impossible')
         
         else:
-            print(result)                  
+            print(result)              

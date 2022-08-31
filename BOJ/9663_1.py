@@ -2,7 +2,7 @@ from sys import stdin
 
 n = int(stdin.readline())
 
-graph = [0] * n
+graph = [0] * n  # 인덱스는 행, 담기는 값은 열을 의미
 result = 0
 
 
