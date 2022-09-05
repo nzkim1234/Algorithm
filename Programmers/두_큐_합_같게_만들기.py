@@ -11,7 +11,9 @@ def solution(queue1, queue2):
     while True:
         if not (queue1 and queue2):
             count = -1
+
             break
+        
         if sum_1 == total:
             break
         elif sum_1 > total:
