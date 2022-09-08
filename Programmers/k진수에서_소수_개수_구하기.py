@@ -7,16 +7,18 @@ def solution(n, k):
         n = n // k
 
     change = "".join(list(reversed(change))).split('0')
-    graph = [True] * 1000001
-    graph[0], graph[1] = False, False
     
-    for i in range(2, 1000001):
-        if graph[i]:
-            for j in range(i + i, 1000001, i):
-                graph[j] = False
-
     for i in change:
-            if i and graph[int(i)]:
-                answer += 1
-    
+        if i != '':
+            i = int(i)
+            is_prime = True
+            if i == 1:
+                is_prime = False
+            else:
+                for j in range(2, int(i ** 0.5)+ 1):
+                    if i % j == 0:
+                        is_prime = False
+            if is_prime:
+                answer += 1 
+                
     return answer
