@@ -8,7 +8,7 @@ def solution(id_list, report, k):
     
     for input in report:
         set_list.append(list(reversed((input.split()))))
-    
+
     for a, b in set_list:
         count[a].append(b)
     
