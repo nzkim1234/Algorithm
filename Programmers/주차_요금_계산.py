@@ -8,8 +8,10 @@ def solution(fees, records):
         time, num, status = info.split()
         h, m = map(int,time.split(':'))
         time = h * 60 + m
+
         if not num in cars.keys():
             cars[num] = []
+            
         cars[num].append(time)
     
     cars = sorted(cars.items(), key = lambda item: item[0])
