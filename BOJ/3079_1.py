@@ -5,6 +5,7 @@ time_list = []
 
 for _ in range(n):
     time_list.append(int(stdin.readline()))
+
 start = 0
 end = int(1e9) * m
 
